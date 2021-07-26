@@ -29,9 +29,9 @@ namespace sbChessMoveFinder
 
             List<Move> legalMoves = moveService.FindLegalMoves(gameState);
 
-            var result = new Move();
-            result.currentPosition = "asdf";
-            result.newPosition = "fdsa";
+            List<ScoredMove> scoredMoves = moveService.ScoreMoves(legalMoves);
+
+            var result = moveService.GetTopMoveFromList(scoredMoves);
 
             return JsonSerializer.Serialize(result);
         }
