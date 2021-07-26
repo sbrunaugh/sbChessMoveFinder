@@ -1,30 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using sbChessMoveFinder.Models;
 using sbChessMoveFinder.Services;
-using System.Collections.Generic;
 
 namespace sbChessMoveFinder
 {
-    [Route("api/[controller]")]
+    [Route("api/move")]
     [ApiController]
-    public class FindMoveController : ControllerBase
+    public class MoveController : ControllerBase
     {
         private MoveService moveService;
 
-        public FindMoveController()
+        public MoveController()
         {
             this.moveService = new MoveService();
         }
 
         [HttpGet]
+        [Route("findMove")]
         public string findMove([FromBody] GameState gameState)
         {
-            Console.WriteLine("findMove endpoint called with following game state:");
+            Console.WriteLine("move/findMove endpoint called with following game state:");
             Console.Write(gameState.ToString());
 
             List<Move> legalMoves = moveService.FindLegalMoves(gameState);

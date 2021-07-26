@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace sbChessMoveFinder.Models
@@ -9,5 +10,9 @@ namespace sbChessMoveFinder.Models
     {
         public string currentPosition { get; set; }
         public string newPosition { get; set; }
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }

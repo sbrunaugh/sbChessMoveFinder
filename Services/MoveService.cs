@@ -6,7 +6,14 @@ namespace sbChessMoveFinder.Services
 {
     public class MoveService
     {
-        private GamePositionScorerService gamePositionScorerService;
+        private EvaluationService evaluationService;
+        private LegalityService legalityService;
+
+        public MoveService()
+        {
+            this.evaluationService = new EvaluationService();
+            this.legalityService = new LegalityService();
+        }
 
         public List<Move> FindLegalMoves(GameState gameState)
         {
