@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace sbChessMoveFinder.Enums
 {
-    public enum Affiliation
+    public enum Player
     {
         light = 0,
         dark = 1

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using sbChessMoveFinder.Enums;
 
 namespace sbChessMoveFinder.Models
 {
     public class Move
     {
-        public string currentPosition { get; set; }
-        public string newPosition { get; set; }
+        public Piece piece { get; set; }
+        public Position newPosition { get; set; }
         public override string ToString()
         {
             return JsonSerializer.Serialize(this);

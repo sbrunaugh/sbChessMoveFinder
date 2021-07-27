@@ -6,9 +6,9 @@ using sbChessMoveFinder.Enums;
 
 namespace sbChessMoveFinder.Models
 {
-    public class PiecePosition
+    public class Piece
     {
-        public Affiliation affiliation { get; set; }
+        public Player player { get; set; }
         public PieceType pieceType { get; set; }
         public Position boardPosition { get; set; }
     }

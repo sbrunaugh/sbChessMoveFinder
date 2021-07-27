@@ -8,8 +8,8 @@ namespace sbChessMoveFinder.Models
 {
     public class GameState
     {
-        public Affiliation turn { get; set; }
-        public List<PiecePosition> piecePositions { get; set; }
+        public Player turn { get; set; }
+        public List<Piece> pieces { get; set; }
 
         public override string ToString()
         {

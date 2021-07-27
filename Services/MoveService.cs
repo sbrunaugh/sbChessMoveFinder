@@ -6,44 +6,24 @@ namespace sbChessMoveFinder.Services
 {
     public class MoveService
     {
+        private MovementRulesService movementRulesService;
         private EvaluationService evaluationService;
         private LegalityService legalityService;
 
         public MoveService()
         {
+            this.movementRulesService = new MovementRulesService();
             this.evaluationService = new EvaluationService();
             this.legalityService = new LegalityService();
         }
 
-        public List<Move> FindLegalMoves(GameState gameState)
+        public List<Move> GetAllLegalMoves(GameState gameState)
         {
             var result = new List<Move>();
 
-            foreach (var piecePosition in gameState.piecePositions)
+            foreach (var piece in gameState.pieces)
             {
-                switch (piecePosition.pieceType)
-                {
-                    case Enums.PieceType.pawn:
-                        result.AddRange(FindLegalMovesForPawn(piecePosition, gameState));
-                        break;
-                    case Enums.PieceType.rook:
-                        result.AddRange(FindLegalMovesForRook(piecePosition, gameState));
-                        break;
-                    case Enums.PieceType.bishop:
-                        result.AddRange(FindLegalMovesForBishop(piecePosition, gameState));
-                        break;
-                    case Enums.PieceType.knight:
-                        result.AddRange(FindLegalMovesForKnight(piecePosition, gameState));
-                        break;
-                    case Enums.PieceType.queen:
-                        result.AddRange(FindLegalMovesForQueen(piecePosition, gameState));
-                        break;
-                    case Enums.PieceType.king:
-                        result.AddRange(FindLegalMovesForKing(piecePosition, gameState));
-                        break;
-                    default:
-                        throw new System.Exception();
-                }
+                result.AddRange(GetLegalMovesForPiece(piece, gameState));
             }
 
             return result;
@@ -57,7 +37,7 @@ namespace sbChessMoveFinder.Services
             {
                 result.Add(new ScoredMove()
                 {
-                    currentPosition = unscoredMove.currentPosition,
+                    piece = unscoredMove.piece,
                     newPosition = unscoredMove.newPosition,
                     score = ScoreMove(unscoredMove)
                 });
@@ -83,34 +63,29 @@ namespace sbChessMoveFinder.Services
             return bestMoves.FirstOrDefault();
         }
 
-        private List<Move> FindLegalMovesForPawn(PiecePosition pawnPosition, GameState gs)
+        private List<Move> GetLegalMovesForPiece(Piece piece, GameState gs)
         {
-            return new List<Move>();
-        }
+            var destinations = movementRulesService.GetDestinations(
+                piece.pieceType, piece.player, piece.boardPosition
+            );
 
-        private List<Move> FindLegalMovesForRook(PiecePosition rookPosition, GameState gs)
-        {
-            return new List<Move>();
-        }
+            var result = new List<Move>();
 
-        private List<Move> FindLegalMovesForBishop(PiecePosition bishopPosition, GameState gs)
-        {
-            return new List<Move>();
-        }
+            foreach (var desination in destinations)
+            {
+                var proposedMove = new Move()
+                {
+                    piece = piece,
+                    newPosition = desination
+                };
 
-        private List<Move> FindLegalMovesForKnight(PiecePosition knightPosition, GameState gs)
-        {
-            return new List<Move>();
-        }
+                if (legalityService.IsMoveLegal(proposedMove))
+                {
+                    result.Add(proposedMove);
+                }
+            }
 
-        private List<Move> FindLegalMovesForQueen(PiecePosition queenPosition, GameState gs)
-        {
-            return new List<Move>();
-        }
-
-        private List<Move> FindLegalMovesForKing(PiecePosition kingPosition, GameState gs)
-        {
-            return new List<Move>();
+            return result;
         }
     
         private int ScoreMove(Move unscoredMove)

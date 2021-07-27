@@ -25,7 +25,7 @@ namespace sbChessMoveFinder
             Console.WriteLine("move/findMove endpoint called with following game state:");
             Console.Write(gameState.ToString());
 
-            List<Move> legalMoves = moveService.FindLegalMoves(gameState);
+            List<Move> legalMoves = moveService.GetAllLegalMoves(gameState);
 
             List<ScoredMove> scoredMoves = moveService.ScoreMoves(legalMoves);
 
