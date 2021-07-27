@@ -21,16 +21,16 @@ namespace sbChessMoveFinder.Controllers
             this.legalityService = new LegalityService();
         }
 
-        [HttpGet]
-        [Route("checkMove")]
-        public bool checkMove([FromBody] Move move)
-        {
-            Console.WriteLine("legality/checkMove endpoint called with following move:");
-            Console.Write(move.ToString());
+        //[HttpGet]
+        //[Route("checkMove")]
+        //public bool checkMove([FromBody] Move move)
+        //{
+        //    Console.WriteLine("legality/checkMove endpoint called with following move:");
+        //    Console.Write(move.ToString());
 
-            var result = legalityService.IsMoveLegal(move);
+        //    var result = legalityService.IsMoveLegal(move, );
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

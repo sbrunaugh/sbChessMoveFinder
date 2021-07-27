@@ -79,7 +79,7 @@ namespace sbChessMoveFinder.Services
                     newPosition = desination
                 };
 
-                if (legalityService.IsMoveLegal(proposedMove))
+                if (legalityService.IsMoveLegal(proposedMove, gs))
                 {
                     result.Add(proposedMove);
                 }
