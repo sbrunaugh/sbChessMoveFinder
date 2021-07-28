@@ -41,7 +41,15 @@ namespace sbChessMoveFinder.Services
 
         private List<Position> GetPawnDestinations(Position position, Player player)
         {
-            throw new Exception();
+            var result = new List<Position>();
+
+            //if player is on initial tile
+            //return directly in front and two in front
+            //else
+            //return only directly in front
+
+
+            return result;
         }
 
         private List<Position> GetRookDestinations(Position position, Player player)
