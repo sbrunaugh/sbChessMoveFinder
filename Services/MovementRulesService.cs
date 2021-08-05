@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using sbChessMoveFinder.Enums;
+using sbChessMoveFinder.Helpers;
 using sbChessMoveFinder.Models;
 
 namespace sbChessMoveFinder.Services
@@ -43,11 +44,16 @@ namespace sbChessMoveFinder.Services
         {
             var result = new List<Position>();
 
-            //if player is on initial tile
-            //return directly in front and two in front
-            //else
-            //return only directly in front
+            if (PawnHelper.IsOnInitialTile(position, player))
+            {
+                result.Add(PawnHelper.GetFirstTileInFront(position, player));
+                result.Add(PawnHelper.GetSecondTileInFront(position, player));
+            } else
+            {
+                result.Add(PawnHelper.GetFirstTileInFront(position, player));
+            }
 
+            result.AddRange(PawnHelper.GetAttackTiles(position, player));
 
             return result;
         }
