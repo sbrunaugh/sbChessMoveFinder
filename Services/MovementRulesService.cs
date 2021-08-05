@@ -58,9 +58,14 @@ namespace sbChessMoveFinder.Services
             return result;
         }
 
-        private List<Position> GetRookDestinations(Position position, Player player)
+        private List<Position> GetRookDestinations(Position position)
         {
-            throw new Exception();
+            var result = new List<Position>();
+
+            result.AddRange(RookHelper.GetTilesOnSameColumn(position));
+            result.AddRange(RookHelper.GetTilesOnSameRow(position));
+
+            return result;
         }
 
         private List<Position> GetBishopDestinations(Position position, Player player)
